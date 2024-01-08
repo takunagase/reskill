@@ -1,11 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Sora&display=swap');
 
 :root {
     --black-color: #010000;
     --white-color: #ffffff;
     --lightgray-color: #e6e6e6;
+    font-family: 'Sora', sans-serif;
   }
   
   .App {
@@ -21,7 +23,7 @@
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    background: black;
+    background: rgb(3, 20, 50);
     color: white;
     height: 90px;
     position: fixed;
@@ -35,13 +37,16 @@
   }
   
   .container {
-    height: 100vh;
+    height: 75vh;
     padding: 120px;
+    width: 100%;
   }
   
   .container h1 {
     text-align: center;
-    font-size: 50px;
+    font-size: 30px;
+    padding-bottom: 15px;
+    font-weight: bold;
   }
   
   .profileImage {

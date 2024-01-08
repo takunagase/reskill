@@ -20,7 +20,7 @@ export default function Page() {
     <>
       <Header />
       <div className="container">
-        <h1 className="pb-5">ユーザー登録を行う</h1>
+        <h2 className="pb-5 text-center font-bold" style={{fontSize: '30px'}}>ユーザー登録を行う</h2>
         <section class="user_create">
         <Link href="/customers/create" className="mt-4 pt-4" prefetch={false}>
           <button className="btn btn-neutral w-full border-0 bg-blue-200 text-black hover:text-white">Create</button>
