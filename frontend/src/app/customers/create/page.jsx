@@ -2,6 +2,8 @@
 import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Header from '../../components/Header';
+import Link from 'next/link';
 
 import createCustomer from './createCustomer';
 
@@ -250,6 +252,10 @@ const detailsOptions = {
     { value: '77', label: 'サイト運営' },
     { value: '78', label: 'ウェブデザイン・コンテンツ制作' },
   ];
+  const qualificationsOptions = [
+    { value: '1', label: '経営戦略' },
+    { value: '2', label: '人事・人材開発' },
+  ];
 
 export default function CreatePage() {
     const formRef = useRef();
@@ -268,6 +274,8 @@ export default function CreatePage() {
     const [selectedDetail_2, setSelectedDetail_2] = useState('');
     const [selectedCareer_1, setSelectedCareer_1] = useState('');
     const [selectedCareer_2, setSelectedCareer_2] = useState('');
+    const [selectedQualification_1, setSelectedQualification_1] = useState('');
+    const [selectedQualification_2, setSelectedQualification_2] = useState('');
       
     const handleIndustryChange_1 = (event) => {
         const selectedIndustry = event.target.value;
@@ -301,101 +309,144 @@ export default function CreatePage() {
         setSelectedCareer_2(selectedCareer);
     };
 
+   const handleQualificationChange_1 = (event) => {
+        const selectedQualification = event.target.value;
+        setSelectedQualification_1(selectedQualification);
+    };
+    
+    const handleQualificationChange_2 = (event) => {
+        const selectedQualification = event.target.value;
+        setSelectedQualification_2(selectedQualification);
+    };
+
     return (
         <>
-            <div className="card bordered bg-white border-blue-200 border-2 max-w-md m-4">
-                <div className="m-4 card bordered bg-blue-200 duration-200 hover:border-r-red">
-                    <form ref={formRef} onSubmit={handleSubmit}>
-                        <div className="card-body">
-                            <h2 className="card-title">
-                                <p><input type="text" name="customer_name" placeholder="桃太郎" className="input input-bordered" /></p>
-                            </h2>
-                            <p>Customer ID:<input type="text" name="customer_id" placeholder="C030" className="input input-bordered" /></p>
-                            <p>Age:<input type="number" name="age" placeholder="30" className="input input-bordered" /></p>
-                            <p>Gender:<input type="text" name="gender" placeholder="女" className="input input-bordered" /></p>
-                            <p>Industry_1:
-                                <select
-                                    className="select select-bordered w-full max-w-xs"
-                                    onChange={handleIndustryChange_1}
-                                    value={selectedIndustry_1}
-                                >
-                                <option disabled value="">産業を選択してください</option>
-                                {industriesOptions.map((option) => (
-                                    <option key={option.value} value={option.value}>{option.label}</option>
-                                ))}
-                                </select>
-                            </p>
-                            <p>detail_1:
-                                <select
-                                    className="select select-bordered w-full max-w-xs"
-                                    onChange={handleDetailChange_1}
-                                    value={selectedDetail_1}
-                                >
-                                <option disabled value="">業務詳細を選択してください</option>
-                                {detailsOptions[selectedIndustry_1]?.map((option) => (
-                                    <option key={option.value} value={option.value}>{option.label}</option>
-                                ))}
-                                </select>
-                            </p>
-                            <p>career_1:
-                                <select
-                                    className="select select-bordered w-full max-w-xs"
-                                    onChange={handleCareerChange_1}
-                                    value={selectedCareer_1}
-                                >
-                                <option disabled value="">職務を選択してください</option>
-                                {careersOptions.map((option) => (
-                                    <option key={option.value} value={option.value}>{option.label}</option>
-                                ))}
-                                </select>
-                            </p>
-                            <p>在籍年数:<input type="number" name="age" placeholder="1" className="input input-bordered" /></p>
+            <Header />
+            <div className='container'>
+              <h2 className='flex font-bold' style={{fontSize:"20px"}}>ユーザー情報登録</h2>
+              <div className="card bordered bg-white border-blue-200 border-2 max-w-md m-4">
+                  <div className="m-4 card bordered bg-blue-200 duration-200 hover:border-r-red">
+                      <form ref={formRef} onSubmit={handleSubmit}>
+                          <div className="card-body">
+                              <h2 className="card-title">
+                                  <p><input type="text" name="customer_name" placeholder="桃太郎" className="input input-bordered" /></p>
+                              </h2>
+                              <p>Customer ID:<input type="text" name="customer_id" placeholder="C030" className="input input-bordered" /></p>
+                              <p>Age:<input type="number" name="age" placeholder="30" className="input input-bordered" /></p>
+                              <p>Gender:<input type="text" name="gender" placeholder="女" className="input input-bordered" /></p>
+                              <p>Industry_1:
+                                  <select
+                                      className="select select-bordered w-full max-w-xs"
+                                      onChange={handleIndustryChange_1}
+                                      value={selectedIndustry_1}
+                                  >
+                                  <option disabled value="">産業を選択してください</option>
+                                  {industriesOptions.map((option) => (
+                                      <option key={option.value} value={option.value}>{option.label}</option>
+                                  ))}
+                                  </select>
+                              </p>
+                              <p>detail_1:
+                                  <select
+                                      className="select select-bordered w-full max-w-xs"
+                                      onChange={handleDetailChange_1}
+                                      value={selectedDetail_1}
+                                  >
+                                  <option disabled value="">業務詳細を選択してください</option>
+                                  {detailsOptions[selectedIndustry_1]?.map((option) => (
+                                      <option key={option.value} value={option.value}>{option.label}</option>
+                                  ))}
+                                  </select>
+                              </p>
+                              <p>career_1:
+                                  <select
+                                      className="select select-bordered w-full max-w-xs"
+                                      onChange={handleCareerChange_1}
+                                      value={selectedCareer_1}
+                                  >
+                                  <option disabled value="">職務を選択してください</option>
+                                  {careersOptions.map((option) => (
+                                      <option key={option.value} value={option.value}>{option.label}</option>
+                                  ))}
+                                  </select>
+                              </p>
+                              <p>在籍年数:<input type="number" name="age" placeholder="1" className="input input-bordered" /></p>
 
-                            <p>Industry_2:
-                                <select
-                                    className="select select-bordered w-full max-w-xs"
-                                    onChange={handleIndustryChange_2}
-                                    value={selectedIndustry_2}
-                                >
-                                <option disabled value="">産業を選択してください</option>
-                                {industriesOptions.map((option) => (
-                                    <option key={option.value} value={option.value}>{option.label}</option>
-                                ))}
-                                </select>
-                            </p>
-                            <p>detail_2:
-                                <select
-                                    className="select select-bordered w-full max-w-xs"
-                                    onChange={handleDetailChange_2}
-                                    value={selectedDetail_2}
-                                >
-                                <option disabled value="">業務詳細を選択してください</option>
-                                {detailsOptions[selectedIndustry_2]?.map((option) => (
-                                    <option key={option.value} value={option.value}>{option.label}</option>
-                                ))}
-                                </select>
-                            </p>
-                            <p>career_2:
-                                <select
-                                    className="select select-bordered w-full max-w-xs"
-                                    onChange={handleCareerChange_2}
-                                    value={selectedCareer_2}
-                                >
-                                <option disabled value="">職務を選択してください</option>
-                                {careersOptions.map((option) => (
-                                    <option key={option.value} value={option.value}>{option.label}</option>
-                                ))}
-                                </select>
-                            </p>
-                            <p>在籍年数:<input type="number" name="age" placeholder="1" className="input input-bordered" /></p>
-                        </div>
-                        <div className="flex justify-center">
-                            <button type="submit" className="btn btn-primary m-4 text-2xl">
-                                作成
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                              <p>Industry_2:
+                                  <select
+                                      className="select select-bordered w-full max-w-xs"
+                                      onChange={handleIndustryChange_2}
+                                      value={selectedIndustry_2}
+                                  >
+                                  <option disabled value="">産業を選択してください</option>
+                                  {industriesOptions.map((option) => (
+                                      <option key={option.value} value={option.value}>{option.label}</option>
+                                  ))}
+                                  </select>
+                              </p>
+                              <p>detail_2:
+                                  <select
+                                      className="select select-bordered w-full max-w-xs"
+                                      onChange={handleDetailChange_2}
+                                      value={selectedDetail_2}
+                                  >
+                                  <option disabled value="">業務詳細を選択してください</option>
+                                  {detailsOptions[selectedIndustry_2]?.map((option) => (
+                                      <option key={option.value} value={option.value}>{option.label}</option>
+                                  ))}
+                                  </select>
+                              </p>
+                              <p>career_2:
+                                  <select
+                                      className="select select-bordered w-full max-w-xs"
+                                      onChange={handleCareerChange_2}
+                                      value={selectedCareer_2}
+                                  >
+                                  <option disabled value="">職務を選択してください</option>
+                                  {careersOptions.map((option) => (
+                                      <option key={option.value} value={option.value}>{option.label}</option>
+                                  ))}
+                                  </select>
+                              </p>
+                              <p>在籍年数:<input type="number" name="age" placeholder="1" className="input input-bordered" /></p>
+                              <p>Qualification_1:
+                                  <select
+                                      className="select select-bordered w-full max-w-xs"
+                                      onChange={handleQualificationChange_1}
+                                      value={selectedQualification_1}
+                                  >
+                                  <option disabled value="">資格を選択してください</option>
+                                  {qualificationsOptions.map((option) => (
+                                      <option key={option.value} value={option.value}>{option.label}</option>
+                                  ))}
+                                  </select>
+                              </p>
+                              <p>Qualification_2:
+                                  <select
+                                      className="select select-bordered w-full max-w-xs"
+                                      onChange={handleQualificationChange_2}
+                                      value={selectedQualification_2}
+                                  >
+                                  <option disabled value="">資格を選択してください</option>
+                                  {qualificationsOptions.map((option) => (
+                                      <option key={option.value} value={option.value}>{option.label}</option>
+                                  ))}
+                                  </select>
+                              </p>
+                          </div>
+                          <div className="p-5 flex items-center justify-center">
+                              <button type="submit" className="btn btn-primary">
+                                  選択結果確定
+                              </button>
+                          </div>
+                          <div　className='p-5 flex items-center justify-center'>
+                              <Link href="/customers/skills" className="mt-4 pt-4" prefetch={false}>
+                                  <button type="submit" className="btn btn-primary">スキル診断をする</button>
+                              </Link>
+                          </div>
+                      </form>
+                  </div>
+              </div>
             </div>
         </>
     )
