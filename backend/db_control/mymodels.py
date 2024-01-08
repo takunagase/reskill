@@ -1,37 +1,29 @@
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from datetime import datetime
- 
+from sqlalchemy import Column, String, Integer
+from sqlalchemy.ext.declarative import declarative_base
 
-class Base(DeclarativeBase):
-    pass
-
+Base = declarative_base()
 
 class Customers(Base):
     __tablename__ = 'customers'
-    customer_id:Mapped[str] = mapped_column(primary_key=True)
-    customer_name:Mapped[str] = mapped_column()
-    age:Mapped[int] = mapped_column()
-    gender:Mapped[str] = mapped_column()
-
-
-class Items(Base):
-    __tablename__ = 'items'
-    item_id:Mapped[str] = mapped_column(primary_key=True)
-    item_name:Mapped[str] = mapped_column()
-    price:Mapped[int] = mapped_column()
- 
-
-class Purchases(Base):
-    __tablename__ = 'purchases'
-    purchase_id:Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    purchase_name:Mapped[str] = mapped_column(ForeignKey("customers.customer_id"))
-    date:Mapped[datetime] = mapped_column()
- 
-
-class PurchaseDetails(Base):
-    __tablename__ = 'purchase_details'
-    purchase_id:Mapped[int] = mapped_column(ForeignKey("purchases.purchase_id"), primary_key=True)
-    item_name:Mapped[str] = mapped_column(ForeignKey("items.item_id"), primary_key=True)
-    quantity:Mapped[int] = mapped_column()
- 
+    customer_id = Column(String, primary_key=True)
+    customer_name = Column(String)
+    age = Column(Integer)
+    career_l1 = Column(String)
+    career_s1 = Column(String)
+    career_length1 = Column(Integer)
+    career_l2 = Column(String)
+    career_s2 = Column(String)
+    career_length2 = Column(Integer)
+    career_l3 = Column(String)
+    career_s3 = Column(String)
+    career_length3 = Column(Integer)
+    qualification_1 = Column(String)
+    qualification_2 = Column(String)
+    qualification_3 = Column(String)
+    skill_l1 = Column(String)
+    skill_s1 = Column(String)
+    skill_l2 = Column(String)
+    skill_s2 = Column(String)
+    skill_l3 = Column(String)
+    skill_s3 = Column(String)

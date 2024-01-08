@@ -6,42 +6,59 @@ from flask_cors import CORS
 from db_control import crud, mymodels
 
 import requests
+import openai
 
-# Azure Database for MySQL
 # REST APIでありCRUDを持っている
 app = Flask(__name__)
 CORS(app)
- 
+
+# アクセスの為のキーをopenai.api_keyに代入し、設定
+openai.api_key = "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"
+
 
 @app.route("/")
 def index():
     return "<p>Flask top page!</p>"
- 
+
+# /customers エンドポイントへのPOSTリクエストを処理
 @app.route("/customers", methods=['POST'])
 def create_customer():
     values = request.get_json()
-    # values = {
-    #     "customer_id": "C005",
-    #     "customer_name": "佐藤Aこ",
-    #     "age": 64,
-    #     "gender": "女"
-    # }
     tmp = crud.myinsert(mymodels.Customers, values)
     result = crud.myselect(mymodels.Customers, values.get("customer_id"))
     return result, 200
 
-@app.route("/customers", methods=['GET'])
-def read_one_customer():
-    model = mymodels.Customers
-    target_id = request.args.get('customer_id') #クエリパラメータ
-    result = crud.myselect(mymodels.Customers, target_id)
-    return result, 200
+@app.route("/skills", methods=['GET', 'POST'])
+def run_gpt():
+    # リクエスト内容を決める
+    try:
+        values = request.get_json()
+        customer_id = values["customer_id"]
+        career_l1 = values["career_l1"]
+        career_s1 = values["career_s1"]
+        career_length1 = values["career_length1"]
+        career_l2 = values["career_l2"]
+        career_s2 = values["career_s2"]
+        career_length2 = values["career_length2"]
+        skill_s1 = values["skill_s1"]
+        skill_s2= values["skill_s2"]
+        request_to_gpt = "私の職歴は"+  career_l1 + "・" + career_s1 + "を" +  str(career_length1) + "年と" +  career_l2 + "・" + career_s2 + "を" +  str(career_length2) +"年経験しています。保有資格は"+ skill_s1 + "・" + skill_s2 + "です。まず、【現状のあなたのスキル】と題して役職や職歴・資格から推察されるスキルをMECEに因数分解して、理由とともに具体的に出力してください。次に【お勧めの掛け合わせスキル】と題して、現在の職歴や提示してもらったスキルからは大きく逸脱するが、掛け合わせることで新たな視点やアプローチをもたらす可能性のある異分野のスキルをなるべく数多く示してください。まずは500文字以内でお願いします。"
+    except Exception as e:
+        print(f"Error in run_gpt: {e}")
+        return jsonify({"error": str(e)}), 500
 
-@app.route("/allcustomers", methods=['GET'])
-def read_all_customer():
-    model = mymodels.Customers
-    result = crud.myselectAll(mymodels.Customers)
-    return result, 200
+    # 決めた内容を元にopenai.ChatCompletion.createでchatGPTにリクエスト。オプションとしてmodelにAIモデル、messagesに内容を指定
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": request_to_gpt },
+        ],
+    )
+
+    # 返って来たレスポンスの内容はresponse.choices[0]["message"]["content"].strip()に格納されているので、これをoutput_contentに代入
+    gpt_response_skill = response.choices[0]["message"]["content"].strip()
+
+    return gpt_response_skill  # 返って来たレスポンスの内容を返す
 
 @app.route("/customers", methods=['PUT'])
 def update_customer():
@@ -57,14 +74,6 @@ def update_customer():
     result = crud.myselect(mymodels.Customers, values_original.get("customer_id"))
     return result, 200
 
-@app.route("/customers", methods=['DELETE'])
-def delete_customer():
-    model = mymodels.Customers
-    target_id = request.args.get('customer_id') #クエリパラメータ
-    result = crud.mydelete(model, target_id)
-    return result, 200
 
-@app.route("/fetchtest")
-def fetchtest():
-    response = requests.get('https://jsonplaceholder.typicode.com/users')
-    return response.json(), 200
+if __name__ == '__main__':
+    app.run(debug=True)
