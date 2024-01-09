@@ -42,6 +42,7 @@ def myselect(mymodel, customer_id):
                 "customer_id": customer_info.customer_id,
                 "customer_name": customer_info.customer_name,
                 "age": customer_info.age,
+                "gender": customer_info.gender,
                 "career_l1": customer_info.career_l1,
                 "career_s1": customer_info.career_s1,
                 "career_length1": customer_info.career_length1,

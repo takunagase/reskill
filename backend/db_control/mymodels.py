@@ -9,6 +9,7 @@ class Customers(Base):
     customer_id = Column(String, primary_key=True)
     customer_name = Column(String)
     age = Column(Integer)
+    gender = Column(String)
     career_l1 = Column(String)
     career_s1 = Column(String)
     career_length1 = Column(Integer)
