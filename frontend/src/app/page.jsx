@@ -2,6 +2,7 @@
 import React from 'react';
 import { useRef } from 'react';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import { useRouter } from 'next/navigation';
 
 import createCustomer from './createCustomer';
@@ -71,6 +72,7 @@ export default function Home() {
         </div>
       </div>
     </div>
+    <Footer />
   </>
   )
 }

@@ -37,8 +37,9 @@
   }
   
   .container {
-    height: 75vh;
+    height: 100%;
     padding: 120px;
+    margin-bottom: 70px;
     width: 100%;
   }
   
@@ -86,7 +87,7 @@
     color: white;
   }
 
-  .radarchart {
-    display: flex;
-    justify-content: center;
-  }
+.card {
+  padding: 10px;
+  margin: 10px;
+}

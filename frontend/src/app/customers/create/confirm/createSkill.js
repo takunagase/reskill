@@ -1,7 +1,7 @@
 "use server";
 import { revalidatePath } from 'next/cache';
 
-const createCustomer = async (formData) => {
+const createSkill = async (formData) => {
     const creating_customer_name = formData.get("customer_name");
     const creating_customer_id = formData.get("customer_id");
     const creating_age = formData.get("age");
@@ -30,16 +30,16 @@ const createCustomer = async (formData) => {
         qualification_2: creating_qualification_2, // 修正
     })
 
-    const res = await fetch(`http://127.0.0.1:5000/customers`, {
+    const res = await fetch(`http://127.0.0.1:5000/skills`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: body_msg,
     });
     if (!res.ok) {
-        throw new Error('Failed to create customer');
+        throw new Error('Failed to create skill');
     }
 
-    revalidatePath(`/customers`);
+    revalidatePath(`/skills`);
 }
 
-export default createCustomer;
+export default createSkill;
