@@ -88,13 +88,11 @@ def myselectAll_customers():
     session.close()
     return result_json
 
-def myupdate(mymodel, values):
+def myupdate(mymodel, customer_id, values):
     # session構築
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    customer_id = values.pop("customer_id")
- 
     # query = update(Customers).where(Customers.customer_id=="C004").values(customer_name="鈴木C子", age=44)
     query = update(mymodel).where(mymodel.customer_id==customer_id).values(**values)
     try:

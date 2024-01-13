@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Header from '../../../components/Header';
+import Footer from '../../../components/Footer';
 
 export default function Asis() {
     return (
@@ -31,6 +32,7 @@ export default function Asis() {
                     </Link>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

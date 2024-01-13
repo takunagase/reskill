@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import fetchCustomers from "./fetchCustomers";
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default function Page() {
   const [customerInfos, setCustomerInfos] = useState([]);
@@ -55,6 +56,7 @@ export default function Page() {
         </Link>
         </section>
       </div>
+      <Footer />
     </>
   );
 }
