@@ -2,7 +2,9 @@ from flask import Flask, request
 from flask import jsonify
 import json
 from flask_cors import CORS
+
 from db_control import crud, mymodels
+
 import requests
 import openai
 
@@ -11,7 +13,7 @@ app = Flask(__name__)
 CORS(app)
 
 # アクセスの為のキーをopenai.api_keyに代入し、設定
-openai.api_key = "●"
+openai.api_key = "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"
 
 
 @app.route("/")
@@ -70,6 +72,7 @@ def run_gpt():
 
     return gpt_response_skill  # 返って来たレスポンスの内容を返す
 
+
 @app.route("/customers", methods=['PUT'])
 def update_customer():
     try:
@@ -83,32 +86,9 @@ def update_customer():
 
         model = mymodels.Customers
         tmp = crud.myupdate(model, target_id, values)
+        result = crud.myselect(mymodels.Customers, target_id)
 
-        # 関連する教材を取得
-        materials = crud.fetch_materials(values)
-
-        return jsonify({"message": "好みが正常に更新されました", "materials": materials}), 200
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-    
-
-@app.route("/learnings", methods=['POST'])
-def get_learning_materials():
-    try:
-        learning_params = request.get_json()
-        if not learning_params:
-            return jsonify({"error": "無効または不足しているJSONデータ"}), 400
-
-        # 顧客のスキルを更新
-        # ここで myupdate を呼ぶ必要がある場合は呼ぶ
-
-        # 学習教材を取得
-        materials = crud.myselect_learnings(learning_params)
-        response = jsonify(materials)
-        response.headers['Content-Type'] = 'application/json; charset=utf-8'  # 文字セットを設定
-        return response, 200
-    
+        return jsonify(result), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

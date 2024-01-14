@@ -3,21 +3,26 @@ import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import Rating from '../../components/Rating';
 import SliderBar from '../../components/SliderBar';
 import Link from 'next/link'
 
+
+import createLearning from './createLearning';
+
 const LargeCategoryOptions = [
-    { value: '1', label: 'ビジネススキル' },
-    { value: '2', label: '思考術・自己啓発' },
-    { value: '3', label: 'マネジメント' },
-    { value: '4', label: 'マーケティング' },
-    { value: '5', label: 'UI・UXデザイン' },
-    { value: '6', label: 'デザイン' },
-    { value: '7', label: '情報通信業' },
+    { value: 'ビジネススキル', label: 'ビジネススキル' },
+    { value: '思考術・自己啓発', label: '思考術・自己啓発' },
+    { value: 'マネジメント', label: 'マネジメント' },
+    { value: 'マーケティング', label: 'マーケティング' },
+    { value: 'UI・UXデザイン', label: 'UI・UXデザイン' },
+    { value: 'デザイン', label: 'デザイン' },
+    { value: '情報通信業', label: '情報通信業' },
   ];
 
 const SmallCategoryOptions = {
-    1: [
+    "ビジネススキル": [
       { value: 1, label: 'コミュニケーション術' },
       { value: 2, label: 'ビジネス基礎力' },
       { value: 3, label: '仕事術' },
@@ -34,7 +39,7 @@ const SmallCategoryOptions = {
       { value: 14, label: '情報活用' },
       { value: 15, label: '交渉術' },
     ],
-    2: [
+    '思考術・自己啓発': [
       { value: 16, label: '行動習慣' },
       { value: 17, label: 'モチベーション' },
       { value: 18, label: '思考法' },
@@ -50,7 +55,7 @@ const SmallCategoryOptions = {
       { value: 28, label: 'AI時代の人間力' },
       { value: 29, label: '情報活用' },
     ],
-    3: [
+    'マネジメント': [
       { value: 30, label: 'マネジメント' },
       { value: 31, label: 'コミュニケーション術' },
       { value: 32, label: 'コーチング・メンタリング' },
@@ -67,7 +72,7 @@ const SmallCategoryOptions = {
       { value: 43, label: '交渉術' },
       { value: 44, label: '業務効率化' },
     ],
-    4: [
+    'マーケティング': [
       { value: 45, label: '企画提案' },
       { value: 46, label: 'マーケティング戦略/プランニング' },
       { value: 47, label: 'ビジネス基礎力' },
@@ -84,7 +89,7 @@ const SmallCategoryOptions = {
       { value: 58, label: 'クリエイティブデザイン' },
       { value: 59, label: 'Google Analytics' },
     ],
-    5: [
+    'UI・UXデザイン': [
       { value: 60, label: 'Webデザイン' },
       { value: 61,label: 'UI/UX' },
       { value: 62,label: 'デザイン力' },
@@ -100,7 +105,7 @@ const SmallCategoryOptions = {
       { value: 72,label: 'デザイン戦略' },
       { value: 73,label: 'CSS' },
     ],
-    6: [
+    'デザイン': [
       { value: 74,label: 'デザイン' },
       { value: 75,label: 'デザイン力' },
       { value: 76,label: 'クリエイティブデザイン' },
@@ -120,6 +125,9 @@ const SmallCategoryOptions = {
   };
 
 export default function LearningPage() {
+    const formRef = useRef();
+    const router = useRouter();
+
     const [selectedLargeCategory_1, setSelectedLargeCategory_1] = useState('');
     const [selectedSmallCategory_1, setSelectedSmallCategory_1] = useState('');
     const [selectedLargeCategory_2, setSelectedLargeCategory_2] = useState('');
@@ -146,92 +154,107 @@ export default function LearningPage() {
         const selectedSmallCategory = event.target.value;
         setSelectedSmallCategory_2(selectedSmallCategory);
     };
+    
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(formRef.current);
+        await createLearning(formData);
+{/*        router.push(`./recommend`); */}
+    };
 
     return (
         <>
             <Header />
             <div className="container">
-                <h2 className='font-bold' style={{fontSize: '20px'}}>Q. 学んでみたい分野を選択してください</h2>
-                <div className='select_box py-5'>
-                    <p>大分類①：　
-                        <select
-                            className="select select-bordered w-full max-w-xs"
-                            onChange={handleLargeCategoryChange_1}
-                            value={selectedLargeCategory_1}
-                        >
-                        <option disabled value="">未選択</option>
-                        {LargeCategoryOptions.map((option) => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-                        </select>
-                    </p>
-                </div>
-                <div className='select_box'>
-                    <p>小分類①：　
-                        <select
-                            className="select select-bordered w-full max-w-xs"
-                            onChange={handleSmallCategoryChange_1}
-                            value={selectedSmallCategory_1}
-                        >
-                        <option disabled value="">未選択</option>
-                        {SmallCategoryOptions[selectedLargeCategory_1]?.map((option) => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-                        </select>
-                    </p>
-                </div>
-                <div className='select_box py-5'>
-                    <p>大分類②：　
-                        <select
-                            className="select select-bordered w-full max-w-xs"
-                            onChange={handleLargeCategoryChange_2}
-                            value={selectedLargeCategory_2}
-                        >
-                        <option disabled value="">未選択</option>
-                        {LargeCategoryOptions.map((option) => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-                        </select>
-                    </p>
-                </div>
-                <div className='select_box'>
-                    <p>小分類②：　
-                        <select
-                            className="select select-bordered w-full max-w-xs"
-                            onChange={handleSmallCategoryChange_2}
-                            value={selectedSmallCategory_2}
-                        >
-                        <option disabled value="">未選択</option>
-                        {SmallCategoryOptions[selectedLargeCategory_2]?.map((option) => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-                        </select>
-                    </p>
-                </div>
-                
-                <SliderBar />
-                
-                <br/>
-                <br/>
-
-                <div>
-                    <h2 className='font-bold' style={{fontSize: '20px'}}>Q. 難易度を選択してください</h2>
-                    <h3>※1：初級 〜 3：上級</h3>
-                    <div className="rating rating-lg p-3">
-                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-{/*                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" /> */}
+                <form ref={formRef} onSubmit={handleSubmit}>
+                    <h2 className='font-bold' style={{fontSize: '20px'}}>Q. 学んでみたい分野を選択してください</h2>
+                    <div className='select_box py-5'>
+                        <p>大分類①：　
+                            <select
+                                className="select select-bordered w-full max-w-xs"
+                                onChange={handleLargeCategoryChange_1}
+                                value={selectedLargeCategory_1}
+                                name='skill_l1'
+                            >
+                            <option disabled value="">未選択</option>
+                            {LargeCategoryOptions.map((option) => (
+                                <option key={option.value} value={option.value}>{option.label}</option>
+                            ))}
+                            </select>
+                        </p>
                     </div>
-                </div>
+                    <div className='select_box'>
+                        <p>小分類①：　
+                            <select
+                                className="select select-bordered w-full max-w-xs"
+                                onChange={handleSmallCategoryChange_1}
+                                value={selectedSmallCategory_1}
+                            >
+                            <option disabled value="">未選択</option>
+                            {SmallCategoryOptions[selectedLargeCategory_1]?.map((option) => (
+                                <option key={option.value} value={option.label}>{option.label}</option>
+                            ))}
+                            </select>
+                        </p>
+                    </div>
+                    <div className='select_box py-5'>
+                        <p>大分類②：　
+                            <select
+                                className="select select-bordered w-full max-w-xs"
+                                onChange={handleLargeCategoryChange_2}
+                                value={selectedLargeCategory_2}
+                                name="skill_l2"
+                            >
+                            <option disabled value="">未選択</option>
+                            {LargeCategoryOptions.map((option) => (
+                                <option key={option.value} value={option.value}>{option.label}</option>
+                            ))}
+                            </select>
+                        </p>
+                    </div>
+                    <div className='select_box'>
+                        <p>小分類②：　
+                            <select
+                                className="select select-bordered w-full max-w-xs"
+                                onChange={handleSmallCategoryChange_2}
+                                value={selectedSmallCategory_2}
+                            >
+                            <option disabled value="">未選択</option>
+                            {SmallCategoryOptions[selectedLargeCategory_2]?.map((option) => (
+                                <option key={option.value} value={option.label}>{option.label}</option>
+                            ))}
+                            </select>
+                        </p>
+                    </div>
+                    
+                    <SliderBar />
+                    
+                    <br/>
+                    <br/>
 
-                <div className='p-5 flex items-center justify-center'>
-                    <Link href="/customers/learnings/recommend" className="mt-4 pt-4" prefetch={false}>
-                        <button type="submit" className="btn btn-primary">おすすめの教材を見る</button>
-                    </Link>
-                </div>
+                    <Rating />
+    {/*                <div>
+                        <h2 className='font-bold' style={{fontSize: '20px'}}>Q. 難易度を選択してください</h2>
+                        <h3>※1：初級 〜 3：上級</h3>
+                        <div className="rating rating-lg p-3">
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                        </div>
+                    </div> */}
+
+                    <div className='p-5 flex items-center justify-center'>
+{/*                        <Link href="/customers/learnings/recommend" className="mt-4 pt-4" prefetch={false}> */}
+                            <button type="submit" className="btn btn-primary">おすすめの教材を見る</button>
+{/*                        </Link> */}
+                    </div>
+                </form>
             </div>
+
+            <Footer />
         </>
     )
 }

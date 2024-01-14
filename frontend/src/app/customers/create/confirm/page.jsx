@@ -4,7 +4,8 @@ import fetchCustomer from "./fetchCustomer";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
-import createSkill from '../../skills/createSkill';
+import createSkill from './createSkill';
+import createCustomer from './createCustomer';
 
 export default function ConfirmPage() {
     const router = useRouter();
@@ -17,7 +18,7 @@ export default function ConfirmPage() {
         event.preventDefault();
         const formData = new FormData(formRef.current);
         await createSkill(formData);
-        router.push(`.customers/skills?customer_id=${formData.get("customer_id")}`);
+        router.push(`../../customers/skills?customer_id=${formData.get("customer_id")}`);
     };
 
     useEffect(() => {
@@ -34,8 +35,8 @@ export default function ConfirmPage() {
                 <div className="alert alert-success p-4 text-center">
                     正常に作成しました
                 </div>
-                <OneCustomerInfoCard {...customer} />
                 <form ref={formRef} onSubmit={handleSubmit}>
+                    <OneCustomerInfoCard {...customer} />
                     <div className="p-5 flex items-center justify-center">
                           <button type="submit" className="btn btn-primary">
                             スキル診断を行う
