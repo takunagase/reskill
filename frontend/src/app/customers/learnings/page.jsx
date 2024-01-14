@@ -160,7 +160,7 @@ export default function LearningPage() {
         event.preventDefault();
         const formData = new FormData(formRef.current);
         await createLearning(formData);
-{/*        router.push(`./recommend`); */}
+        router.push(`./learnings/recommend`);
     };
 
     return (

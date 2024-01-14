@@ -1,12 +1,31 @@
 "use client"
 import { useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import Link from 'next/link'
 
 export default function LearningPage() {
+    const formRef = useRef();
+    const router = useRouter();
+    const customer_id = useSearchParams().get("customer_id");
+    const [learning, setLearning] = useState("");
+
+    useEffect(() => {
+        const fetchLearning = async () => {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/learnings`, {method: 'POST',  headers: {'Content-Type': 'application/json'}, cache: "no-cache"}); // customer_id を実際の値に変更
+                const data = await response.text();
+                setLearning(data); // レスポンスをstateに設定
+              } catch (error) {
+                console.error('Error fetching data:', error);
+              }
+            };
+                // 関数を呼び出し
+            fetchLearning();
+    }, []); // 空の依存リストを渡すことで、マウント時にのみ実行
+
     return (
         <>
             <Header />
@@ -18,7 +37,7 @@ export default function LearningPage() {
                         <div className="card w-80 h-100 bg-base-100 shadow-xl h-full">
                         <figure><img className="w-full h-full object-cover"　src="//s3-ap-northeast-1.amazonaws.com/i.schoo/images/class/600x260/10837.jpg" alt="Shoes" /></figure>
                             <div className="card-body">
-                                <h2 className="card-title text-center">誰もがやる気の種を持っている</h2>
+                                <h2 className="card-title text-center">{learning}</h2>
                                 <p>難易度： 1 </p>
                                 <p>講義時間：60分</p>
                                 <p>講師：藤由 達藏</p>
