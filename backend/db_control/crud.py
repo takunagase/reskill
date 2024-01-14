@@ -7,9 +7,12 @@ import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 import json
 import pandas as pd
+from sqlalchemy.orm import aliased
+from sqlalchemy import or_
 
 from db_control.connect import engine
 from db_control.mymodels import Customers
+from db_control.mymodels import Materials
 
 def myinsert(model, values):
     Session = sessionmaker(bind=engine)
@@ -49,18 +52,12 @@ def myselect(mymodel, customer_id):
                 "career_l2": customer_info.career_l2,
                 "career_s2": customer_info.career_s2,
                 "career_length2": customer_info.career_length2,
-                "career_l3": customer_info.career_l3,
-                "career_s3": customer_info.career_s3,
-                "career_length3": customer_info.career_length3,
                 "qualification_1": customer_info.qualification_1,
                 "qualification_2": customer_info.qualification_2,
-                "qualification_3": customer_info.qualification_3,
                 "skill_l1": customer_info.skill_l1,
                 "skill_s1": customer_info.skill_s1,
                 "skill_l2": customer_info.skill_l2,
                 "skill_s2": customer_info.skill_s2,
-                "skill_l3": customer_info.skill_l3,
-                "skill_s3": customer_info.skill_s3,
             })
         # リストをJSONに変換
         result_json = json.dumps(result_dict_list, ensure_ascii=False)
@@ -105,6 +102,52 @@ def myupdate(mymodel, customer_id, values):
     # セッションを閉じる
     session.close()
     return "put"
+
+def myselect_learnings(learning_params):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    skill_l1 = learning_params.get('skill_l1')
+    skill_l2 = learning_params.get('skill_l2')
+    lecture_time = learning_params.get('lecture_time')
+    level = int(learning_params.get('level'))
+
+    query = (
+        session.query(Materials)
+        .filter(or_(Materials.category == skill_l1, Materials.category == skill_l2))
+        .filter(Materials.lecture_time <= lecture_time)
+        .filter(Materials.level == level)
+    )
+
+    try:
+        with session.begin():
+            result = query.all()
+            result_json = [
+                {
+                    "id": material.id,
+                    "category_id": material.category_id,
+                    "category": material.category,
+                    "link": material.link,
+                    "big_title": material.big_title,
+                    "image": material.image,
+                    "level": material.level,
+                    "lecture_link": material.lecture_link,
+                    "middle_titles": material.middle_titles,
+                    "lecture_time": material.lecture_time,
+                    "teacher_name": material.teacher_name,
+                    "teacher_post": material.teacher_post,
+                    "teacher_profile": material.teacher_profile,
+                    "related_words": material.related_words,
+                }
+                for material in result
+            ]
+            return result_json
+    except Exception as e:
+        print(f"学習教材の取得中にエラーが発生しました: {str(e)}")
+    return []
+
+
+
 
 def mydelete(mymodel, customer_id):
     # session構築

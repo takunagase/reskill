@@ -19,6 +19,7 @@ function SliderBar() {
                 className="range"
                 step={5}
                 onChange={handleSliderChange}
+                name='lecture_time'
             />
             <div className="w-full flex justify-between text-xs px-2">
                 <span>0</span>
