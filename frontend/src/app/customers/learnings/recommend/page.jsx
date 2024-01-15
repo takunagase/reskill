@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
+import CreateLearning from '../createLearning';
 import Link from 'next/link'
 
 export default function LearningPage() {
@@ -12,24 +13,31 @@ export default function LearningPage() {
     const customer_id = useSearchParams().get("customer_id");
     const [learning, setLearning] = useState("");
 
-    useEffect(() => {
+{/*    useEffect(() => {
         const fetchLearning = async () => {
             try {
                 const response = await fetch(`http://127.0.0.1:5000/learnings`, {method: 'POST',  headers: {'Content-Type': 'application/json'}, cache: "no-cache"}); // customer_id を実際の値に変更
-                const data = await response.text();
-                setLearning(data); // レスポンスをstateに設定
-              } catch (error) {
+                const data = await response.json();
+                // データが空でないか確認し、最初の要素を取り出す
+                if (data.length > 0) {
+                    const firstMaterial = data[0];
+                    console.log(firstMaterial);
+                    // ここで取り出したデータを使って何かしらの処理を行う
+                    setLearning(firstMaterial); // レスポンスをstateに設定
+                } else {
+                    console.error('該当する学習教材が見つかりませんでした');
+                }
+                } catch (error) {
                 console.error('Error fetching data:', error);
-              }
+                }
             };
                 // 関数を呼び出し
             fetchLearning();
-    }, []); // 空の依存リストを渡すことで、マウント時にのみ実行
+    }, []); // 空の依存リストを渡すことで、マウント時にのみ実行 */}
 
     return (
         <>
             <Header />
-            
             <div className="container">
                 <h1>おすすめ教材</h1>
                 <div className="flex flex-wrap -mx-4">
@@ -37,7 +45,7 @@ export default function LearningPage() {
                         <div className="card w-80 h-100 bg-base-100 shadow-xl h-full">
                         <figure><img className="w-full h-full object-cover"　src="//s3-ap-northeast-1.amazonaws.com/i.schoo/images/class/600x260/10837.jpg" alt="Shoes" /></figure>
                             <div className="card-body">
-                                <h2 className="card-title text-center">{learning}</h2>
+                                <h2 className="card-title text-center">あ</h2>
                                 <p>難易度： 1 </p>
                                 <p>講義時間：60分</p>
                                 <p>講師：藤由 達藏</p>

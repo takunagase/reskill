@@ -51,7 +51,7 @@ def run_gpt():
         career_length2 = values["career_length2"]
         qualification_1 = values["qualification_1"]
         qualification_2= values["qualification_2"]
-        request_to_gpt = customer_id+"の私の職歴は"+  career_l1 + "・" + career_s1 + "を" +  str(career_length1) + "年と" +  career_l2 + "・" + career_s2 + "を" +  str(career_length2) +"年経験しています。保有資格は"+ qualification_1 + "・" + qualification_2 + "です。まず、【現状のあなたのスキル】と題して現在保有していると思われるスキルを①②③をつけた箇条書きで「●●能力」と題して３つ挙げ、理由も添えて出力してください。次に【お勧めの掛け合わせスキル】と題して、現在の職歴や提示してもらったスキルからは大きく逸脱するが、掛け合わせることで新たな視点やアプローチをもたらす可能性のある異分野のスキルを①②③をつけた箇条書きで３つ理由とともに出力してください。文字数は500文字以内でお願いします。"
+        request_to_gpt = customer_id+"の私の職歴は"+  career_l1 + "・" + career_s1 + "を" +  str(career_length1) + "年と" +  career_l2 + "・" + career_s2 + "を" +  str(career_length2) +"年経験しています。保有資格は"+ qualification_1 + "・" + qualification_2 + "です。まず、【現状のあなたのスキル】と題して現在保有していると思われるスキルを①②③をつけた箇条書きで３つ挙げ、理由も添えて出力してください。次に【お勧めの掛け合わせスキル】と題して、現在の職歴や提示してもらったスキルからは大きく逸脱するが、掛け合わせることで新たな視点やアプローチをもたらす可能性のある異分野のスキルを①②③をつけた箇条書きで３つ理由とともに出力してください。文字数は500文字以内でお願いします。"
     except Exception as e:
         print(f"Error in run_gpt: {e}")
         return jsonify({"error": str(e)}), 500
@@ -106,7 +106,7 @@ def get_learning_materials():
         # 学習教材を取得
         materials = crud.myselect_learnings(learning_params)
         response = jsonify(materials)
-        response.headers['Content-Type'] = 'application/json; charset=utf-8'  # 文字セットを設定
+        #response.headers['Content-Type'] = 'application/json; charset=utf-8'  # 文字セットを設定
         return response, 200
     
     except Exception as e:
