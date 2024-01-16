@@ -11,7 +11,7 @@ app = Flask(__name__)
 CORS(app)
 
 # アクセスの為のキーをopenai.api_keyに代入し、設定
-openai.api_key = "●"
+openai.api_key = "丸"
 
 
 @app.route("/")
