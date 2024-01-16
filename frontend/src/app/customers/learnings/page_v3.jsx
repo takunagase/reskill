@@ -159,22 +159,16 @@ export default function LearningPage() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(formRef.current);
-        const skill_l1 = formData.get("skill_l1");
-        const skill_l2 = formData.get("skill_l2");
-        const lecture_time = formData.get("lecture_time");
-        const level = formData.get("level");
-
-        const query = JSON.stringify({
-            skill_l1: skill_l1,
-            skill_l2: skill_l2,
-            level: level,
-            lecture_time: lecture_time,
-        });
-
-        router.push(`/customers/learnings/recommend?skill_l1=${skill_l1}&skill_l2=${skill_l2}&lecture_time=${lecture_time}&level=${level}`);
+{/*        router.push(`./learnings/recommend`); */}
+        const result = await CreateLearning(formData);
+        // データをstateに保存
+        setLearningData(result);
+        console.log(learningData)
+{/*        router.push({pathname: './learnings/recommend', query: learningData}); */}
     };
 
-
+    const recommendData_pre = JSON.stringify(learningData, null, 2);
+    const query = JSON.parse(recommendData_pre);
 
     return (
         <>
@@ -263,6 +257,11 @@ export default function LearningPage() {
                         <button type="submit" className="btn btn-primary">おすすめの教材を見る</button>
                     </div>
                 </form>
+                    <div className='p-5 flex items-center justify-center'>
+                        <Link href={{pathname:"/customers/learnings/recommend", query: query }} as="/customers/learnings/recommend" className="mt-4 pt-4" prefetch={false}> 
+                        <button type="submit" className="btn btn-primary">おすすめの教材を見る</button>
+                        </Link>
+                    </div>
             </div>
 
             <Footer />
