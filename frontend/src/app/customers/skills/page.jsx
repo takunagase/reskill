@@ -34,6 +34,13 @@ export default function Asis() {
 
 
     // 【お勧めの掛け合わせスキル】の正規表現
+    const futureRegex = /【期待できるキャリア展望】([\s\S]*?)(?=(【|$))/;
+    // マッチした部分を取得
+    const futureMatch = fullText.match(futureRegex);
+    // マッチした部分があれば、スキル情報を取り出す
+    const future = futureMatch ? futureMatch[1].trim() : '';
+
+    // 【お勧めの掛け合わせスキル】の正規表現
     const recommendedSkillsRegex = /【お勧めの掛け合わせスキル】([\s\S]*?)(?=(【期待できるキャリア展望】|$))/;
     // マッチした部分を取得
     const recommendedSkillsMatch = fullText.match(recommendedSkillsRegex);
@@ -79,12 +86,6 @@ export default function Asis() {
     const currentSkills_3 = currentSkillsMatch_3 ? currentSkillsMatch_3[1].trim() : '';
     const currentSkills_split_3 = currentSkills_3.split('-');
 
-    // 【お勧めの掛け合わせスキル】の正規表現
-    const futureRegex = /【期待できるキャリア展望】([\s\S]*?)(?=(【|$))/;
-    // マッチした部分を取得
-    const futureMatch = fullText.match(futureRegex);
-    // マッチした部分があれば、スキル情報を取り出す
-    const future = futureMatch ? futureMatch[1].trim() : '';
 
 
     return (
@@ -146,7 +147,7 @@ export default function Asis() {
             <div className="container flex flex-col w-full border-opacity-50">
                 <h1>期待できるキャリア展望</h1>
                 <div className="grid h-50 card bg-base-300 rounded-box">
-                    <p className='p-3'>{future[0]}</p>
+                    <p className='p-3'>{futureMatch}</p> 
                 </div>
             </div>
 

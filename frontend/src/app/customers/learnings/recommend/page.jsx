@@ -160,10 +160,94 @@ export default function LearningPage() {
                                         </a>
                                     </div>
                                 </div>
-        {/*                 <pre>{recommendData}</pre> */}
                        </div>
                     </div>
                 )}
+                </div>
+                <div className="bg-base-200">
+                    <div className='row pb-20'>
+                        <h1 className='text-center font-bold pt-10 pb-10' style={{fontSize: '30px'}}>よく一緒に閲覧されている教材</h1>
+                        <div className="flex flex-wrap -mx-4">
+                            <div className="md:w-1/3 lg:w-1/4 px-4 h-full">
+                                <div className="card w-85 bg-base-100 shadow-xl image-full" style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', padding: "1px" }}>
+                                    <figure><img src="//s3-ap-northeast-1.amazonaws.com/i.schoo/images/class/600x260/9677.jpg" alt="Shoes" /></figure>
+                                    <div className="card-body">
+                                        <h2 className="card-title text-center">全2回【実践】頼られるリーダーの自己育成法</h2>
+                                        <div className="card-actions justify-end">
+                                            <a href="https://schoo.jp/course/7428">
+                                                <button className="btn btn-primary btn-sm">Check</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="w-full md:w-1/3 lg:w-1/4 px-4 h-full">
+                                <div className="card w-85 bg-base-100 shadow-xl image-full" style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', padding: "1px" }}>
+                                    <figure><img src="//s3-ap-northeast-1.amazonaws.com/i.schoo/images/class/600x260/9677.jpg" alt="Shoes" /></figure>
+                                    <div className="card-body">
+                                        <h2 className="card-title text-center">全2回【実践】頼られるリーダーの自己育成法</h2>
+                                        <div className="card-actions justify-end">
+                                            <a href="https://schoo.jp/course/7428">
+                                                <button className="btn btn-primary btn-sm">Check</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="w-full md:w-1/3 lg:w-1/4 px-4 h-full">
+                                <div className="card w-85 bg-base-100 shadow-xl image-full" style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', padding: "1px" }}>
+                                    <figure><img src="//s3-ap-northeast-1.amazonaws.com/i.schoo/images/class/600x260/9677.jpg" alt="Shoes" /></figure>
+                                    <div className="card-body">
+                                        <h2 className="card-title text-center">全2回【実践】頼られるリーダーの自己育成法</h2>
+                                        <div className="card-actions justify-end">
+                                            <a href="https://schoo.jp/course/7428">
+                                                <button className="btn btn-primary btn-sm">Check</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="w-full md:w-1/3 lg:w-1/4 px-4 h-full">
+                                <div className="card w-85 bg-base-100 shadow-xl image-full" style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', padding: "1px" }}>
+                                    <figure><img src="//s3-ap-northeast-1.amazonaws.com/i.schoo/images/class/600x260/9677.jpg" alt="Shoes" /></figure>
+                                    <div className="card-body">
+                                        <h2 className="card-title text-center">全2回【実践】頼られるリーダーの自己育成法</h2>
+                                        <div className="card-actions justify-end">
+                                            <a href="https://schoo.jp/course/7428">
+                                                <button className="btn btn-primary btn-sm">Check</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="w-full md:w-1/3 lg:w-1/4 px-4 h-full">
+                                <div className="card w-85 bg-base-100 shadow-xl image-full" style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', padding: "1px" }}>
+                                    <figure><img src="//s3-ap-northeast-1.amazonaws.com/i.schoo/images/class/600x260/9677.jpg" alt="Shoes" /></figure>
+                                    <div className="card-body">
+                                        <h2 className="card-title text-center">全2回【実践】頼られるリーダーの自己育成法</h2>
+                                        <div className="card-actions justify-end">
+                                            <a href="https://schoo.jp/course/7428">
+                                                <button className="btn btn-primary btn-sm">Check</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="w-full md:w-1/3 lg:w-1/4 px-4 h-full">
+                                <div className="card w-85 bg-base-100 shadow-xl image-full" style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', padding: "1px" }}>
+                                    <figure><img src="//s3-ap-northeast-1.amazonaws.com/i.schoo/images/class/600x260/9677.jpg" alt="Shoes" /></figure>
+                                    <div className="card-body">
+                                        <h2 className="card-title text-center">全2回【実践】頼られるリーダーの自己育成法</h2>
+                                        <div className="card-actions justify-end">
+                                            <a href="https://schoo.jp/course/7428">
+                                                <button className="btn btn-primary btn-sm">Check</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             <Footer />

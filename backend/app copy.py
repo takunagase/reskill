@@ -51,7 +51,7 @@ def run_gpt():
         career_length2 = values["career_length2"]
         qualification_1 = values["qualification_1"]
         qualification_2= values["qualification_2"]
-        request_to_gpt = customer_id+"の私の職歴は"+  career_l1 + "・" + career_s1 + "を" +  str(career_length1) + "年と" +  career_l2 + "・" + career_s2 + "を" +  str(career_length2) +"年経験しています。保有資格は"+ qualification_1 + "・" + qualification_2 + "です。まず、【現状のあなたのスキル】と題して現在保有しているスキルを①②③をつけた箇条書きで○○力として３つ挙げ、理由も箇条書きで添えて出力してください。次に【お勧めの掛け合わせスキル】と題して、現在の職歴や提示してもらったスキルからは大きく逸脱するが、掛け合わせることで新たな視点やアプローチをもたらす可能性のある異分野のスキルを①②③をつけた箇条書きで３つ挙げ、理由も箇条書きで添えて出力してください。最後に、【期待できるキャリア展望】と題して、その掛け合わせスキルを取得することにより、期待できるキャリア展望を述べてください。特に、その人のスキル取得を後押しできるよう、他の人には無い独自性を強調する文脈で語ってください。"
+        request_to_gpt = customer_id+"の私の職歴は"+  career_l1 + "・" + career_s1 + "を" +  str(career_length1) + "年と" +  career_l2 + "・" + career_s2 + "を" +  str(career_length2) +"年経験しています。保有資格は"+ qualification_1 + "・" + qualification_2 + "です。まず、【現状のあなたのスキル】と題して現在保有しているスキルを①②③をつけた箇条書きで３つ挙げ、理由も箇条書きで添えて出力してください。次に【お勧めの掛け合わせスキル】と題して、現在の職歴や提示してもらったスキルからは大きく逸脱するが、掛け合わせることで新たな視点やアプローチをもたらす可能性のある異分野のスキルを①②③をつけた箇条書きで３つ挙げ、理由も箇条書きで添えて出力してください。最後に、【期待できるキャリア展望】と題して、その掛け合わせスキルを取得することにより、期待できるキャリア展望を述べてください。特に、その人のスキル取得を後押しできるよう、他の人には無い独自性を強調する文脈で語ってください。"
     except Exception as e:
         print(f"Error in run_gpt: {e}")
         return jsonify({"error": str(e)}), 500
