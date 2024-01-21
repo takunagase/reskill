@@ -16,9 +16,7 @@ export default function ConfirmPage() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const formData = new FormData(formRef.current);
-        await createSkill(formData);
-        router.push(`../../customers/skills?customer_id=${formData.get("customer_id")}`);
+        router.push(`../../customers/skills?customer_id=${customer_id}`);
     };
 
     useEffect(() => {
